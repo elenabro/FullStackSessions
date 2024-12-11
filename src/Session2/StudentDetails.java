@@ -27,8 +27,5 @@ public class StudentDetails
         System.out.println("\n=======Student details=======\n");
         scanner.close();
 
-
-
-
     }
 }
