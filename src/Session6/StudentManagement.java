@@ -19,7 +19,7 @@ public class StudentManagement {
         }
     }
 
-//    private static int lastAssignedId = 0;
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class StudentManagement {
 
             switch (choice) {
                 case 1:
-//                    int studentId = ++lastAssignedId;
+
                     boolean idExists = false;
                     System.out.println("Enter student ID: ");
                     int studentId = scanner.nextInt();
@@ -83,8 +83,8 @@ public class StudentManagement {
                         System.out.println("===== End of Student Details=====");
                     }
                     break;
-                case 3:
 
+                case 3:
                         System.out.println("Enter student ID to delete: ");
                         int id = scanner.nextInt();
                         idExists = false;

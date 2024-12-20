@@ -50,7 +50,10 @@ public class StudentManagement {
                     System.out.println("Enter student age: ");
                     int studentAge = scanner.nextInt();
 
-                    Student student = new Student(studentId, firstName, lastName, studentAge);
+                    System.out.println("Enter student major: ");
+                    String studentMajor = scanner.next();
+
+                    Student student = new Student(studentId, firstName, lastName, studentAge, studentMajor);
 
                     students.add(student);
 
@@ -58,72 +61,92 @@ public class StudentManagement {
                     break;
 
                 case 2:
+                    System.out.println("===========Students Details============");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
-                        System.out.printf("%-10d %-20s %-20s %-5d%n",
+
+                        System.out.printf("%-5d %-15s %-15s %-5d %-15s%n",
                                 s.studentId,
                                 s.firstName,
                                 s.lastName,
-                                s.studentAge);
+                                s.studentAge,
+                                s.studentMajor);
+
                     }
+                    System.out.println("=======================================");
                     break;
+
                 case 3:
+                    // define student to delete
+                    // search for student by id
+                    // found1/not found1
+                    // delete student
 
                     System.out.println("Enter student ID to delete: ");
-                    int id = scanner.nextInt();
-                    idExists = false;
-                    students.remove(id);
-                    System.out.println("Student deleted successfully");
-                    if (!idExists) {
-                        System.out.println("Student with id " + id + " does not exist");
-                    }
-                    break;
-
-                case 4:
-                    // define student to edit
-                    // search for student by id
-                    // found/not found
-                    // set new values
-
-                    System.out.println("Enter student ID to edit: ");
-                    int idToEdit = scanner.nextInt();
+                    int idToDelete = scanner.nextInt();
                     scanner.nextLine();
-
-                    boolean found = false;
+                    boolean found1 = false;
                     for (Student s : students) {
-                        if (s.studentId == idToEdit) {
-
-                            System.out.println("Enter new first name: ");
-                            s.firstName = scanner.nextLine();
-                            System.out.println("Enter new last name: ");
-                            s.lastName = scanner.nextLine();
-                            System.out.println("Enter new age: ");
-                            s.studentAge = scanner.nextInt();
-                            scanner.nextLine();
-
-                            System.out.println("Student details updated successfully");
-                            found = true;
+                        if (s.studentId == idToDelete) {
+                            students.remove(s);
+                            System.out.println("Student deleted successfully");
+                            found1 = true;
                             break;
                         }
+                }
+                if (!found1) {
+                    System.out.println("Student with id " + idToDelete + " does not exist");
+                }
+                break;
+
+                     case 4:
+                            // define student to edit
+                            // search for student by id
+                            // found/not found
+                            // set new values
+
+                            System.out.println("Enter student ID to edit: ");
+                            int idToEdit = scanner.nextInt();
+                            scanner.nextLine();
+
+                            boolean found = false;
+                            for (Student s : students) {
+                                if (s.studentId == idToEdit) {
+
+                                    System.out.println("Enter new first name: ");
+                                    s.firstName = scanner.nextLine();
+                                    System.out.println("Enter new last name: ");
+                                    s.lastName = scanner.nextLine();
+                                    System.out.println("Enter new age: ");
+                                    s.studentAge = scanner.nextInt();
+                                    System.out.println("Enter new major: ");
+                                    s.studentMajor = scanner.nextLine();
+                                    scanner.nextLine();
+
+                                    System.out.println("Student details updated successfully");
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                System.out.println("Student with id " + idToEdit + " does not exist");
+                            }
+
+                            break;
+
+
+                        case 5:
+                            System.out.println("Exit");
+                            scanner.close();
+                            System.exit(0);
+                            break;
+
+                        default:
+                            System.out.println("Invalid choice.");
+
+
                     }
-                    if (!found) {
-                        System.out.println("Student with id " + idToEdit + " does not exist");
-                    }
-
-                    break;
-
-
-                case 5:
-                    System.out.println("Exit");
-                    scanner.close();
-                    System.exit(0);
-                    break;
-
-                default:
-                    System.out.println("Invalid choice.");
-
-
             }
         }
     }
-}
+
