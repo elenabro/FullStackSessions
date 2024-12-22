@@ -49,6 +49,7 @@ public class StudentManagement {
 
                     System.out.println("Enter student age: ");
                     int studentAge = scanner.nextInt();
+                    scanner.nextLine();
 
                     System.out.println("Enter student major: ");
                     String studentMajor = scanner.next();
@@ -61,7 +62,14 @@ public class StudentManagement {
                     break;
 
                 case 2:
-                    System.out.println("===========Students Details============");
+                    System.out.println("==================Students Details==================");
+                    System.out.printf("%-5s %-15s %-15s %-5s %-15s%n",
+                            "ID",
+                            "First Name",
+                            "Last Name",
+                            "Age",
+                            "Major");
+                    System.out.println("====================================================");
                     for (int i = 0; i < students.size(); i++) {
                         Student s = students.get(i);
 
@@ -73,7 +81,7 @@ public class StudentManagement {
                                 s.studentMajor);
 
                     }
-                    System.out.println("=======================================");
+                    System.out.println("====================================================");
                     break;
 
                 case 3:
@@ -119,9 +127,9 @@ public class StudentManagement {
                                     s.lastName = scanner.nextLine();
                                     System.out.println("Enter new age: ");
                                     s.studentAge = scanner.nextInt();
+                                    scanner.nextLine();
                                     System.out.println("Enter new major: ");
                                     s.studentMajor = scanner.nextLine();
-                                    scanner.nextLine();
 
                                     System.out.println("Student details updated successfully");
                                     found = true;
