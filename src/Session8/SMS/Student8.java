@@ -8,18 +8,18 @@ public class Student8 {
     private String lastName;
     private int studentAge;
     private String studentMajor;
+    private static int studentCount = 0;
 
-    static int studentCount = 0;
+    Student8() {}
 
-
-    Student8(String fName, String lName, int age, String major) {
+    public Student8(String fName, String lName, int age, String major) {
 
         this.studentId = ++lastAssignedId;
-        this.firstName = fName;
-        this.lastName = lName;
-        this.studentAge = age;
-        this.studentMajor = major;
-        studentCount++;
+        this.setFirstName(fName);
+        this.setLastName(lName);
+        this.setStudentAge (age);
+        this.setStudentMajor(major);
+        this.studentCount++;
     }
     public int getStudentId() {
         return studentId;
@@ -53,13 +53,28 @@ public class Student8 {
         this.lastName = lastName;
     }
 
-    public void setStudentAge(int studentAge) {
-        this.studentAge = studentAge;
+    public void setStudentAge(int age) {
+        if (age < 18 || age > 150) {
+            throw new IllegalArgumentException("Invalid age." +
+                    "Please enter a valid age between 18 and 150.");
+        }
+        this.studentAge = age;
     }
 
-    public void setStudentMajor(String studentMajor) {
-        this.studentMajor = studentMajor;
-    }
+    public void setStudentMajor(String major) {
+            if (!isValidMajor(major)) {
+                throw new IllegalArgumentException("Invalid major. " +
+                        "Please enter a valid major (Art, Economics, Math).");
+            }
+            this.studentMajor = major;
+        }
+
+        private boolean isValidMajor(String major) {
+            return major.equalsIgnoreCase("Art")
+                    || major.equalsIgnoreCase("Economics")
+                    || major.equalsIgnoreCase("Math");
+        }
+
 
     public void Student8() {
         studentCount++;
