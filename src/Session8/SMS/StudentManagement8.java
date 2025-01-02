@@ -3,13 +3,10 @@ package Session8.SMS;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static jdk.internal.org.jline.utils.Colors.s;
-
-
 
 public class StudentManagement8 {
 
-        public static void main(String[] args) {
+        public static void main(String[] args) throws InvalidMajorException {
             Scanner scanner = new Scanner(System.in);
 
             ArrayList<Student8> students = new ArrayList<>();
@@ -29,6 +26,7 @@ public class StudentManagement8 {
                     case 1:                            // Add Student Details
 
                         Student8 newStudent = new Student8();
+
                         System.out.println("Enter student first name: ");
                         String firstName = scanner.next();
                         newStudent.setFirstName(firstName);
@@ -42,15 +40,17 @@ public class StudentManagement8 {
                         newStudent.setStudentAge(studentAge);
                         scanner.nextLine();
 
+
                         System.out.println("Enter student major: ");
-                        String studentMajor = scanner.nextLine();
+                        String studentMajor = scanner.next();
                         newStudent.setStudentMajor(studentMajor);
 
-                        Student8 student = new Student8(firstName, lastName, studentAge, studentMajor);
+                        int studentId = newStudent.generateId();
+                        newStudent.setStudentId(studentId);
 
-                        students.add(student);
+                        students.add(newStudent);
 
-                        System.out.println("Information saved successfully: " + student.toString());
+                        System.out.println("Information saved successfully: " + newStudent.toString());
                         break;
 
                     case 2:                   // Display Student Details
@@ -73,7 +73,7 @@ public class StudentManagement8 {
                         }
 
                         System.out.println("====================================================");
-                        Student8.showCount();
+                        Student8.setStudentCount(students.size());
                         System.out.println("====================================================");
                     break;
 
@@ -135,7 +135,6 @@ public class StudentManagement8 {
 
                     default:
                         System.out.println("Invalid choice.");
-
 
                 }
             }
