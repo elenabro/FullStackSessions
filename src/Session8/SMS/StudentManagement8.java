@@ -1,7 +1,14 @@
 package Session8.SMS;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.reflect.Type;
 
 
 public class StudentManagement8 {
@@ -17,7 +24,9 @@ public class StudentManagement8 {
                 System.out.println("2. Display Student Details");
                 System.out.println("3. Delete Student Details");
                 System.out.println("4. Edit Student Details");
-                System.out.println("5. Exit");
+                System.out.println("5. Save to JSON");
+                System.out.println("6. Load from JSON");
+                System.out.println("7. Exit");
                 System.out.println("Enter your choice: ");
 
                 int choice = scanner.nextInt();
@@ -126,8 +135,28 @@ public class StudentManagement8 {
                         }
                         break;
 
+                    case 5: // Save to JSON
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        try (FileWriter writer = new FileWriter("students.json")) {
+                            gson.toJson(students, writer);
+                            System.out.println("Student details saved to students.json");
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving to JSON: " + e.getMessage());
+                        }
+                        break;
 
-                    case 5:
+                    case 6: // Load from JSON
+                        gson = new Gson();
+                        try (FileReader reader = new FileReader("students.json")) {
+                            Type studentListType = new TypeToken<ArrayList<Student8>>() {}.getType();
+                            students = gson.fromJson(reader, studentListType);
+                            System.out.println("Student details loaded from students.json");
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while loading from JSON: " + e.getMessage());
+                        }
+                        break;
+
+                    case 7:
                         System.out.println("Exit");
                         scanner.close();
                         System.exit(0);

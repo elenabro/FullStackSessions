@@ -24,7 +24,8 @@ public  class RomanNumbers {
             numSet.put('D', 500);
             numSet.put('M', 1000);
 
-            for (int i = 0; i < romanNum.length() ; i++) {
+//            for (int i = 0; i < romanNum.length() ; i++) {   // to start from the first character
+              for (int i= romanNum.length()-1; i>=0; i--){    // to start from the last character
 
                 int current = numSet.get(romanNum.charAt(i));
 
