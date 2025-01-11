@@ -34,7 +34,7 @@ abstract class BankAccount {
         }
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(double amount) throws InvalidWithdrawException {
         if (amount > 0){
             accountBalance -= amount;
         } else {

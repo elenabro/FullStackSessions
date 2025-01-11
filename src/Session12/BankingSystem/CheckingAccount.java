@@ -10,11 +10,11 @@ public class CheckingAccount extends BankAccount implements Transaction {
         this.overdraftLimit = overdraftLimit;
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(double amount) throws InvalidWithdrawException {
         if (amount > 0 && (getBalance() - amount >= -overdraftLimit) ){
             super.withdraw(amount);
         } else {
-            System.out.println("Invalid withdraw amount or exceeds overdraft limit");
+            throw new InvalidWithdrawException("Invalid withdraw amount");
         }
     }
 
