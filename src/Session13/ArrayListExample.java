@@ -3,6 +3,10 @@ package Session13;
 import java.util.ArrayList;
 import java.util.List;
 
+//you create a mutable List that you can change.
+// you can remove elements from the list,
+// add elements to the list
+
 public class ArrayListExample {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();

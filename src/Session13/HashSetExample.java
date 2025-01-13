@@ -2,6 +2,10 @@ package Session13;
 
 import java.util.HashSet;
 
+
+//HashSet is a set of  values without unique key. Order is not preserved
+//you can not rely on the order of the things in HashSet
+
 public class HashSetExample {
     public static void main(String[] args) {
         HashSet<String> names = new HashSet<>(); // Create a HashSet object

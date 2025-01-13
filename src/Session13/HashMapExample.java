@@ -2,6 +2,10 @@ package Session13;
 
 import java.util.HashMap;
 
+//you deal with key, value pairs. Keys have to be unique
+//you can save any value along with the key
+//use HashMap to store characters, words, etc
+
 public class HashMapExample {
 
     public static void main(String[] args) {
