@@ -12,6 +12,9 @@ public class TreeMapExample {
         String sample = "Java is a sample and Java is a powerful and simple";
 //   1. split
         String[] words = sample.split(" ");
+//        when we split with space " ", we split into words
+//        when we split without space "", we split into characters
+
 
 //   2. create TreeMap
         TreeMap<String, Integer> counter = new TreeMap<>();

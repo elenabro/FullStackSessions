@@ -9,3 +9,7 @@ public class StringExamples {
         }
     }
 }
+//we can choose criteria for splitting
+//if s.split "computer" - we will have two strings portnov and school
+//        when we split with space " ", we split into words
+//        when we split without space "", we split into characters
