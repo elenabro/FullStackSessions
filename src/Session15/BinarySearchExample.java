@@ -6,51 +6,60 @@ import java.util.Random;
 public class BinarySearchExample {
 
     public static void main(String[] args) {
+        int size = 1000000;
+        int[] array = generateSortedArray(size);
+        int target = array[new Random().nextInt(size)];
 
-//        search for array[500]
-        int[] array = new Random().ints(1000000,1, 10000).toArray();
-        int[] array2 = array;
-        Arrays.sort(array2);
-//        int[] ar = {4,5,1,3,7,0,9};
-//        search(ar, 0 );
+        // Measure O(n) - Linear Search
+        long startTimeLinear = System.nanoTime();
+        linearSearch(array, target);
+        long endTimeLinear = System.nanoTime();
+        System.out.println("O(n) Linear Search Time: " + (endTimeLinear - startTimeLinear) + " ns");
 
-        long startTime = System.nanoTime();
-        search(array2, array[500]);
-        long endTime = System.nanoTime();
-        System.out.println("Time for binary: " + (endTime - startTime));
-
-        long startTime2 = System.nanoTime();
-        search(array, array[500]);
-        long endTime2 = System.nanoTime();
-        System.out.println("Time for loop: " + (endTime2 - startTime2));
-
+        // Measure O(log n) - Binary Search
+        long startTimeBinary = System.nanoTime();
+        binarySearch(array, target);
+        long endTimeBinary = System.nanoTime();
+        System.out.println("O(log n) Binary Search Time: " + (endTimeBinary - startTimeBinary) + " ns");
     }
 
-    private static boolean search(int[] array, int target){
-        Arrays.sort(array);
-        int left = 0, right = array.length - 1;
-        while(left<=right){
-            int middle = left + (right - left) / 2;
-            if (array[middle] == target) return true;
-            else if (array[middle] < target) left = middle + 1;
-            else right = middle - 1;
+    // Generate a sorted array of given size
+    private static int[] generateSortedArray(int size) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = i;
         }
-        return false;
-
+        return array;
     }
 
-    private static boolean loopSearch(int[] array, int target) {
-
+    // Linear search O(n)
+    private static int linearSearch(int[] array, int target) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == target) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
+    }
+
+    // Binary search O(log n)
+    private static int binarySearch(int[] array, int target) {
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
     }
 }
-
-
 
 //  4, 6, 7, 2, 0
 // sort

@@ -9,10 +9,12 @@ public class MethodOverLoading {
     }
 
     public static void message(String message){
+
         System.out.println(message);
     }
 
     public static void message (int a, int b){
+
         System.out.println(a + b);
     }
 }
@@ -24,6 +26,7 @@ class Test {
 
     @Override
     public String toString() {
+
         return text + " " + x;
     }
 }
