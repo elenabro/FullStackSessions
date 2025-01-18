@@ -1,4 +1,4 @@
-package Session8.SMS;
+package SMS.SMS;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -11,12 +11,12 @@ import java.util.Scanner;
 import java.lang.reflect.Type;
 
 
-public class StudentManagement8 {
+public class StudentManagement {
 
         public static void main(String[] args) throws InvalidMajorException {
             Scanner scanner = new Scanner(System.in);
 
-            ArrayList<Student8> students = new ArrayList<>();
+            ArrayList<Student> students = new ArrayList<>();
 
             while (true) {
                 System.out.println("=====Student Menu=====");
@@ -33,34 +33,50 @@ public class StudentManagement8 {
 
                 switch (choice) {
                     case 1:                            // Add Student Details
-
-                        Student8 newStudent = new Student8();
-
-                        System.out.println("Enter student first name: ");
-                        String firstName = scanner.next();
-                        newStudent.setFirstName(firstName);
-
-                        System.out.println("Enter student last name: ");
-                        String lastName = scanner.next();
-                        newStudent.setLastName(lastName);
-
-                        System.out.println("Enter student age: ");
-                        int studentAge = scanner.nextInt();
-                        newStudent.setStudentAge(studentAge);
+                        System.out.println("Enter student type (1 for Graduate, 2 for Undergraduate): ");
+                        int type = scanner.nextInt();
                         scanner.nextLine();
 
 
+                        Student student = new UndergraduatedStudent();
+
+                        System.out.println("Enter student first name: ");
+                        String firstName = scanner.next();
+                        student.setFirstName(firstName);
+
+                        System.out.println("Enter student last name: ");
+                        String lastName = scanner.next();
+                        student.setLastName(lastName);
+
+                        System.out.println("Enter student age: ");
+                        int studentAge = scanner.nextInt();
+                        student.setStudentAge(studentAge);
+                        scanner.nextLine();
+
                         System.out.println("Enter student major: ");
                         String studentMajor = scanner.next();
-                        newStudent.setStudentMajor(studentMajor);
+                        student.setStudentMajor(studentMajor);
 
-                        int studentId = newStudent.generateId();
-                        newStudent.setStudentId(studentId);
 
-                        students.add(newStudent);
+                        if (type == 1) {
+                            System.out.println("Enter student GPA: ");
+                            double GPA = scanner.nextDouble();
+                            student = new GraduatedStudent(firstName, lastName, studentAge, studentMajor, GPA);
+                        } else if (type == 2) {
+                            student = new UndergraduatedStudent(firstName, lastName, studentAge, studentMajor);
+                        } else {
+                            System.out.println("Invalid student type.");
+                            break;
+                        }
 
-                        System.out.println("Information saved successfully: " + newStudent.toString());
-                        break;
+                        int studentId = student.generateId();
+                        student.setStudentId(studentId);
+                        students.add(student);
+
+                        System.out.println("Information saved successfully: " + student.display());
+                            break;
+
+
 
                     case 2:                   // Display Student Details
                         System.out.println("==================Students Details==================");
@@ -72,7 +88,7 @@ public class StudentManagement8 {
                                 "Major");
                         System.out.println("====================================================");
 
-                        for (Student8 s : students) {
+                        for (Student s : students) {
                             System.out.printf("%-5d %-15s %-15s %-5d %-15s%n",
                                     s.getStudentId(),
                                     s.getFirstName(),
@@ -82,7 +98,7 @@ public class StudentManagement8 {
                         }
 
                         System.out.println("====================================================");
-                        Student8.setStudentCount(students.size());
+                        Student.setStudentCount(students.size());
                         System.out.println("====================================================");
                     break;
 
@@ -91,7 +107,7 @@ public class StudentManagement8 {
                         int idToDelete = scanner.nextInt();
                         scanner.nextLine();
                         boolean found1 = false;
-                        for (Student8 s : students) {
+                        for (Student s : students) {
                             if (s.getStudentId() == idToDelete) {
                                 students.remove(s);
                                 System.out.println("Student deleted successfully");
@@ -111,7 +127,7 @@ public class StudentManagement8 {
                         scanner.nextLine();
 
                         boolean found = false;
-                        for (Student8 s : students) {
+                        for (Student s : students) {
                             if (s.getStudentId() == idToEdit) {
 
                                 System.out.println("Enter new first name: ");
@@ -148,7 +164,7 @@ public class StudentManagement8 {
                     case 6: // Load from JSON
                         gson = new Gson();
                         try (FileReader reader = new FileReader("students.json")) {
-                            Type studentListType = new TypeToken<ArrayList<Student8>>() {}.getType();
+                            Type studentListType = new TypeToken<ArrayList<Student>>() {}.getType();
                             students = gson.fromJson(reader, studentListType);
                             System.out.println("Student details loaded from students.json");
                         } catch (IOException e) {

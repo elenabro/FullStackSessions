@@ -1,4 +1,4 @@
-package Session8.SMS;
+package SMS.SMS;
 
 class InvalidAgeException extends Exception {
     public InvalidAgeException(String message) {

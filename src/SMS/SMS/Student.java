@@ -1,10 +1,10 @@
-package Session8.SMS;
+package SMS.SMS;
 
-import static Session8.SMS.AgeValidationException.validateAge;
-import static Session8.SMS.MajorValidationException.validateMajor;
+import static SMS.SMS.AgeValidationException.validateAge;
+import static SMS.SMS.MajorValidationException.validateMajor;
 
 
-public class Student8 {
+public abstract class Student {
 
     private static int lastAssignedId = 0;
     private int studentId;
@@ -12,18 +12,17 @@ public class Student8 {
     private String lastName;
     private int studentAge;
     private String studentMajor;
-    private static int newStudentCount = 0;
+    private static int newStudentCount = 1;
 
-    Student8() {}
+    public Student() {}
 
-    public Student8(String fName, String lName, int age, String major)  {
+    public Student(String fName, String lName, int age, String major)  {
 
         this.studentId = generateId();
         this.setFirstName(fName);
         this.setLastName(lName);
         this.setStudentAge(age);
         this.setStudentMajor(major);
-        this.setStudentCount(newStudentCount);
     }
     public int getStudentId() {
         return studentId;
@@ -57,11 +56,12 @@ public class Student8 {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)    {
         this.lastName = lastName;
     }
 
     public void setStudentAge(int age) {
+
         try {
             validateAge(age);
             this.studentAge = age;
@@ -85,10 +85,11 @@ public class Student8 {
     }
 
     public static void setStudentCount(int newStudentCount) {
-        Student8.newStudentCount = newStudentCount;
+        Student.newStudentCount = newStudentCount;
         System.out.println("Number of students: " + newStudentCount);
     }
 
+    @Override
     public String toString() {
         return String.format("ID: %d, First name: %s, Last name: %s, Age: %d, Major: %s",
                 studentId,
@@ -97,6 +98,8 @@ public class Student8 {
                 studentAge,
                 studentMajor);
     }
+
+    public abstract String display();
 }
 
 

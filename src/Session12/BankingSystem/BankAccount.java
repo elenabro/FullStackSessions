@@ -13,7 +13,7 @@ abstract class BankAccount {
         this.accountBalance = initialBalance;
     }
 
-    public String getAccountNumber() {
+    public String getAccountNumber(){
         return accountNumber;
     }
 

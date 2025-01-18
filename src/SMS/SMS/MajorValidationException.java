@@ -1,4 +1,4 @@
-package Session8.SMS;
+package SMS.SMS;
 
 class InvalidMajorException extends Exception {
     public InvalidMajorException(String message) {
