@@ -1,0 +1,23 @@
+[
+  {
+    "studentId": 2,
+    "firstName": "t",
+    "lastName": "t",
+    "studentAge": 56,
+    "studentMajor": "math"
+  },
+  {
+    "studentId": 4,
+    "firstName": "w",
+    "lastName": "w",
+    "studentAge": 24,
+    "studentMajor": "math"
+  },
+  {
+    "studentId": 6,
+    "firstName": "e",
+    "lastName": "e",
+    "studentAge": 34,
+    "studentMajor": "art"
+  }
+]

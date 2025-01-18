@@ -1,0 +1,3 @@
+[MESSAGE] Cannot invoke "Session15.Person.calcAgerage()" because "p" is null
+[MESSAGE] Cannot invoke "Session15.Person.calcAverage()" because "p" is null
+[MESSAGE] Cannot invoke "Session15.Person.calcAgerage()" because "p" is null
