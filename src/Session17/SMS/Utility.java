@@ -25,11 +25,13 @@ public class Utility {
                 while ((line = reader.readLine()) != null) {
                     String[] data = line.split(",");
                     String type = data[0];
-                    int id = Integer.parseInt(data[1].trim());
-                    String firstName = data[2].trim();
-                    String lastName = data[3].trim();
-                    int age = Integer.parseInt(data[4].trim());
-                    Major major = Major.valueOf(data[5].trim().toUpperCase());
+                    int id = Integer.parseInt(data[1]);
+                    String firstName = data[2];
+                    String lastName = data[3];
+                    int age = Integer.parseInt(data[4]);
+                    Major major = Major.valueOf(data[5]);
+
+
                     if ("GraduateStudent".equals(type)) {
                         GraduateStudent gradStudent = new GraduateStudent(id, firstName, lastName, age, major);
                         gradStudent.setGPA(Double.parseDouble(data[6]));

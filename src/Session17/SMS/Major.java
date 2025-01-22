@@ -17,5 +17,12 @@ public enum Major {
     /**
      * Major in Math.
      */
-    MATH
+    MATH;
+    public static Major fromString(String major) throws InvalidMajorException {
+        try {
+            return Major.valueOf(major.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidMajorException("Invalid major: " + major);
+        }
+    }
 }

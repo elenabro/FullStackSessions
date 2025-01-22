@@ -1,5 +1,6 @@
 package Session17.SMS;
 
+
 /**
  * Abstract class representing a student.
  */
@@ -12,7 +13,7 @@ public abstract class Student {
 
     private static int nextId = 1;
     private static int studentCount = 0;
-
+//    public Student() {}
     /**
      * Constructs a new Student with the specified details.
      *
@@ -54,6 +55,7 @@ public abstract class Student {
      * @return the ID of the student
      */
     public int getId() {
+
         return id;
     }
 
@@ -63,6 +65,7 @@ public abstract class Student {
      * @return the first name of the student
      */
     public String getFirstName() {
+
         return firstName;
     }
 
@@ -72,6 +75,7 @@ public abstract class Student {
      * @param firstName the first name to set
      */
     public void setFirstName(String firstName) {
+
         this.firstName = firstName;
     }
 
@@ -81,6 +85,7 @@ public abstract class Student {
      * @return the last name of the student
      */
     public String getLastName() {
+
         return lastName;
     }
 
@@ -90,6 +95,7 @@ public abstract class Student {
      * @param lastName the last name to set
      */
     public void setLastName(String lastName) {
+
         this.lastName = lastName;
     }
 
@@ -106,13 +112,17 @@ public abstract class Student {
      * Sets the age of the student.
      *
      * @param age the age to set
-     * @throws IllegalArgumentException if the age is not between 18 and 150
+     * @throws IllegalAgeException the age is not between 18 and 150
      */
-    public void setAge(int age) {
+    public void setAge(int age)  {
+        try {
         if (age < 18 || age > 150) {
-            throw new IllegalArgumentException("Age must be between 18 and 150.");
-        }
-        this.age = age;
+            throw new IllegalAgeException("Age must be between 18 and 150.");
+          }
+        } catch (IllegalAgeException e) {
+        System.out.println("Invalid age: " + e.getMessage());
+       }
+
     }
 
     /**

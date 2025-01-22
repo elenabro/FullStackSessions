@@ -1,5 +1,7 @@
 package Session17.SMS;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +18,7 @@ public class MenuDrivenSMS {
      *
      * @param args command-line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAgeException {
         students = Utility.loadStudentsFromFile(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
 
@@ -34,6 +36,7 @@ public class MenuDrivenSMS {
             scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
                     addStudent(scanner);
                     break;
@@ -61,7 +64,7 @@ public class MenuDrivenSMS {
      *
      * @param scanner the scanner to read user input
      */
-    private static void addStudent(Scanner scanner) {
+    private static void addStudent(Scanner scanner) throws IllegalAgeException {
         System.out.print("Enter student type (1 for Undergraduate, 2 for Graduate): ");
         int type = scanner.nextInt();
         scanner.nextLine();
@@ -71,15 +74,35 @@ public class MenuDrivenSMS {
 
         System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
+//Добавить возраст и мейджор
+//        Student student;
+//        if (type == 1) {
+//            student = new UndergradStudent(firstName, lastName, age, major);
+//        } else if (type == 2) {
 
         System.out.print("Enter age: ");
         int age = scanner.nextInt();
         scanner.nextLine();
 
+        try {
+            if (age < 18 || age > 150) {
+                throw new IllegalAgeException("Age must be between 18 and 150.");
+            }
+        } catch (IllegalAgeException e) {
+            System.out.println("Invalid age: " + e.getMessage());
+            return;
+        }
+
         System.out.print("Enter major (ART, ECONOMICS, MATH): ");
         String majorStr = scanner.nextLine();
-        Major major = Major.valueOf(majorStr.toUpperCase());
+        Major major;
+        try {
+            major = Major.fromString(majorStr);
+        } catch (InvalidMajorException e) {
+            System.out.println("Invalid major: " + e.getMessage());
+            return;
 
+        }
         Student student;
         if (type == 1) {
             student = new UndergradStudent(firstName, lastName, age, major);
@@ -173,7 +196,7 @@ public class MenuDrivenSMS {
      *
      * @param scanner the scanner to read user input
      */
-    private static void editStudent(Scanner scanner) {
+    private static void editStudent(Scanner scanner) throws IllegalAgeException {
         System.out.print("Enter student ID to edit: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -213,23 +236,27 @@ public class MenuDrivenSMS {
         System.out.print("Enter new major (leave blank to keep current): ");
         String majorStr = scanner.nextLine();
         if (!majorStr.isEmpty()) {
-            Major major = Major.valueOf(majorStr.toUpperCase());
-            studentToEdit.major = major;
-        }
+            try {
+                studentToEdit.major = Major.fromString(majorStr);
+            } catch (InvalidMajorException e) {
+                System.out.println("Invalid major: " + e.getMessage());
+                return;
+            }
 
-        if (studentToEdit instanceof GraduateStudent) {
-            System.out.print("Enter new GPA (leave blank to keep current): ");
-            String gpaStr = scanner.nextLine();
-            if (!gpaStr.isEmpty()) {
-                double gpa = Double.parseDouble(gpaStr);
-                try {
-                    ((GraduateStudent) studentToEdit).setGPA(gpa);
-                } catch (IllegalGpaException e) {
-                    System.out.println("Invalid GPA: " + e.getMessage());
+            if (studentToEdit instanceof GraduateStudent) {
+                System.out.print("Enter new GPA (leave blank to keep current): ");
+                String gpaStr = scanner.nextLine();
+                if (!gpaStr.isEmpty()) {
+                    double gpa = Double.parseDouble(gpaStr);
+                    try {
+                        ((GraduateStudent) studentToEdit).setGPA(gpa);
+                    } catch (IllegalGpaException e) {
+                        System.out.println("Invalid GPA: " + e.getMessage());
+                    }
                 }
             }
-        }
 
-        System.out.println("Student details updated successfully.");
+            System.out.println("Student details updated successfully.");
+        }
     }
 }
