@@ -10,26 +10,11 @@ public abstract class Student {
     private String lastName;
     private int age;
     public Major major;
+    private String email;
 
     private static int nextId = 1;
-    private static int studentCount = 0;
-//    public Student() {}
-    /**
-     * Constructs a new Student with the specified details.
-     *
-     * @param firstName the first name of the student
-     * @param lastName  the last name of the student
-     * @param age       the age of the student
-     * @param major     the major of the student
-     */
-    public Student(String firstName, String lastName, int age, Major major) {
-        this.id = nextId++;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.major = major;
-        studentCount++;
-    }
+    private static int studentCount = 1;
+    public Student() {}
 
     /**
      * Constructs a new Student with the specified details.
@@ -39,13 +24,15 @@ public abstract class Student {
      * @param lastName  the last name of the student
      * @param age       the age of the student
      * @param major     the major of the student
+     * @param email     the email of the student
      */
-    public Student(int id, String firstName, String lastName, int age, Major major) {
+    public Student(int id, String firstName, String lastName, int age,  Major major, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.major = major;
+        this.email = email;
         studentCount++;
     }
 
@@ -108,22 +95,24 @@ public abstract class Student {
         return age;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     /**
      * Sets the age of the student.
      *
      * @param age the age to set
      * @throws IllegalAgeException the age is not between 18 and 150
      */
-    public void setAge(int age)  {
-        try {
-        if (age < 18 || age > 150) {
-            throw new IllegalAgeException("Age must be between 18 and 150.");
-          }
-        } catch (IllegalAgeException e) {
-        System.out.println("Invalid age: " + e.getMessage());
-       }
-
+    public void setAge(int age) throws IllegalAgeException {
+            if (age < 18 || age > 150) {    // Age validation
+                throw new IllegalAgeException("Invalid age. ");
+            }
+            this.age = age;
     }
+
+
 
     /**
      * Sets the next ID for the student.
@@ -132,6 +121,13 @@ public abstract class Student {
      */
     public static void setNextId(int nextId) {
         Student.nextId = nextId;
+    }
+
+    public void setEmail(String email) throws IllegalEmailException {
+        if (!email.contains("@")) {
+            throw new IllegalEmailException("Email must contain '@'.");
+        }
+        this.email = email;
     }
 
     /**

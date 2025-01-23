@@ -30,14 +30,19 @@ public class Utility {
                     String lastName = data[3];
                     int age = Integer.parseInt(data[4]);
                     Major major = Major.valueOf(data[5]);
+                    String email = data[6];
 
 
-                    if ("GraduateStudent".equals(type)) {
-                        GraduateStudent gradStudent = new GraduateStudent(id, firstName, lastName, age, major);
-                        gradStudent.setGPA(Double.parseDouble(data[6]));
+                    if ("GraduateStudent".equals(type)){
+                        if (data.length < 8) {
+                            System.out.println("Skipping invalid line: " + line);
+                            continue;
+                        }
+                        GraduateStudent gradStudent = new GraduateStudent(id, firstName, lastName, age, major, email);
+                        gradStudent.setGPA(Double.parseDouble(data[7]));
                         students.add(gradStudent);
                     } else if ("UndergradStudent".equals(type)) {
-                        UndergradStudent undergradStudent = new UndergradStudent(id, firstName, lastName, age, major);
+                        UndergradStudent undergradStudent = new UndergradStudent(id, firstName, lastName, age, major, email);
                         students.add(undergradStudent);
                     }
                     if (id > maxId) {
@@ -71,6 +76,7 @@ public class Utility {
                             .append(gradStudent.getLastName()).append(",")
                             .append(gradStudent.getAge()).append(",")
                             .append(gradStudent.major).append(",")
+                            .append(gradStudent.getEmail()).append(",")
                             .append(gradStudent.getGPA()).append("\n");
                 } else if (student instanceof UndergradStudent) {
                     UndergradStudent undergradStudent = (UndergradStudent) student;
@@ -79,7 +85,8 @@ public class Utility {
                             .append(undergradStudent.getFirstName()).append(",")
                             .append(undergradStudent.getLastName()).append(",")
                             .append(undergradStudent.getAge()).append(",")
-                            .append(undergradStudent.major).append("\n");
+                            .append(undergradStudent.major).append(",")
+                            .append(undergradStudent.getEmail()).append("\n");
                 }
                 writer.write(studentData.toString());
             }

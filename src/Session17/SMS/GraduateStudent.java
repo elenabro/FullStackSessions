@@ -9,26 +9,15 @@ public class GraduateStudent extends Student implements Printable {
     /**
      * Constructs a new GraduateStudent with the specified details.
      *
-     * @param firstName the first name of the student
-     * @param lastName  the last name of the student
-     * @param age       the age of the student
-     * @param major     the major of the student
-     */
-    public GraduateStudent(String firstName, String lastName, int age, Major major) {
-        super(firstName, lastName, age, major);
-    }
-
-    /**
-     * Constructs a new GraduateStudent with the specified details.
-     *
      * @param id        the ID of the student
      * @param firstName the first name of the student
      * @param lastName  the last name of the student
      * @param age       the age of the student
      * @param major     the major of the student
+     * @param email     the email of the student
      */
-    public GraduateStudent(int id, String firstName, String lastName, int age, Major major) {
-        super(id, firstName, lastName, age, major);
+    public GraduateStudent(int id, String firstName, String lastName, int age,  Major major, String email) {
+        super(id, firstName, lastName, age,  major, email);
     }
 
     /**
@@ -58,8 +47,8 @@ public class GraduateStudent extends Student implements Printable {
      */
     @Override
     public void print() {
-        System.out.format("| %-15s | %-15d | %-15s | %-15s | %-15d | %-15s | %-15.2f |%n",
-                "Graduate", getId(), getFirstName(), getLastName(), getAge(), major, getGPA());
-        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
+        System.out.format("| %-15s | %-15d | %-15s | %-15s | %-15d | %-15s | %-20s | %-15.2f %n",
+                "Graduate", getId(), getFirstName(), getLastName(), getAge(), major, getEmail(), getGPA());
+        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
     }
 }

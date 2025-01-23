@@ -22,6 +22,7 @@ public class MainMenu {
             System.out.println("2. View Students");
             System.out.println("3. Edit student");
             System.out.println("4. Delete Student");
+            System.out.println("5. Export Students to CSV");
             System.out.println("0. Save and Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -39,6 +40,11 @@ public class MainMenu {
                     break;
                 case 4:
                     new DeleteStudent(studentService, scanner).execute();
+                    break;
+                case 5:
+                    System.out.print("Enter the file name to export to: ");
+                    String fileName = scanner.nextLine();
+                    studentService.exportStudentsToCSV(fileName);
                     break;
                 case 0:
                     System.out.println("Exiting...");

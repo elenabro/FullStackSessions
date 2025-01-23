@@ -1,6 +1,8 @@
 package Session18.SMS;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,5 +54,42 @@ public class StudentService {
      */
     public void saveStudents() {
         studentRepository.saveStudents(students);
+    }
+
+    /**
+     * Exports the list of students to a CSV file.
+     *
+     * @param fileName the name of the CSV file to export to
+     */
+    public void exportStudentsToCSV(String fileName) {
+        List<Student> students = studentRepository.findAll();
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.append("Type,ID,First Name,Last Name,Age,Major,Email,GPA\n");
+            for (Student student : students) {
+                if (student instanceof GraduateStudent) {
+                    GraduateStudent gradStudent = (GraduateStudent) student;
+                    writer.append("GraduateStudent,")
+                            .append(String.valueOf(gradStudent.getId())).append(",")
+                            .append(gradStudent.getFirstName()).append(",")
+                            .append(gradStudent.getLastName()).append(",")
+                            .append(String.valueOf(gradStudent.getAge())).append(",")
+                            .append(gradStudent.getMajor().toString()).append(",")
+//                            .append(gradStudent.getEmail()).append(",")
+                            .append(String.valueOf(gradStudent.getGPA())).append("\n");
+                } else if (student instanceof UndergradStudent) {
+                    UndergradStudent undergradStudent = (UndergradStudent) student;
+                    writer.append("UndergradStudent,")
+                            .append(String.valueOf(undergradStudent.getId())).append(",")
+                            .append(undergradStudent.getFirstName()).append(",")
+                            .append(undergradStudent.getLastName()).append(",")
+                            .append(String.valueOf(undergradStudent.getAge())).append(",")
+                            .append(undergradStudent.getMajor().toString()).append(",");
+//                            .append(undergradStudent.getEmail()).append("\n");
+                }
+            }
+            System.out.println("Students exported to CSV file successfully.");
+        } catch (IOException e) {
+            System.out.println("Error exporting students to CSV file: " + e.getMessage());
+        }
     }
 }

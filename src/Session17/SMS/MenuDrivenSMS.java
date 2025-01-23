@@ -18,7 +18,7 @@ public class MenuDrivenSMS {
      *
      * @param args command-line arguments
      */
-    public static void main(String[] args) throws IllegalAgeException {
+    public static void main(String[] args)  {
         students = Utility.loadStudentsFromFile(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
 
@@ -64,7 +64,7 @@ public class MenuDrivenSMS {
      *
      * @param scanner the scanner to read user input
      */
-    private static void addStudent(Scanner scanner) throws IllegalAgeException {
+    private static void addStudent(Scanner scanner)  {
         System.out.print("Enter student type (1 for Undergraduate, 2 for Graduate): ");
         int type = scanner.nextInt();
         scanner.nextLine();
@@ -74,43 +74,71 @@ public class MenuDrivenSMS {
 
         System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
-//Добавить возраст и мейджор
-//        Student student;
-//        if (type == 1) {
-//            student = new UndergradStudent(firstName, lastName, age, major);
-//        } else if (type == 2) {
 
-        System.out.print("Enter age: ");
-        int age = scanner.nextInt();
-        scanner.nextLine();
-
-        try {
-            if (age < 18 || age > 150) {
-                throw new IllegalAgeException("Age must be between 18 and 150.");
-            }
-        } catch (IllegalAgeException e) {
-            System.out.println("Invalid age: " + e.getMessage());
-            return;
-        }
-
-        System.out.print("Enter major (ART, ECONOMICS, MATH): ");
-        String majorStr = scanner.nextLine();
-        Major major;
-        try {
-            major = Major.fromString(majorStr);
-        } catch (InvalidMajorException e) {
-            System.out.println("Invalid major: " + e.getMessage());
-            return;
-
-        }
         Student student;
         if (type == 1) {
-            student = new UndergradStudent(firstName, lastName, age, major);
+            student = new UndergradStudent(0, firstName, lastName, 0,Major.ART, " ");
+            System.out.print("Enter major (ART, ECONOMICS, MATH): ");
+            String majorStr = scanner.nextLine();
+            try {
+                Major.valueOf(majorStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid major: " + e.getMessage());
+                return;
+            }
+
+            System.out.print("Enter age: ");
+            int age = scanner.nextInt();
+            try {
+                student.setAge(age);
+            } catch (IllegalAgeException e) {
+                System.out.println("Invalid age: " + e.getMessage());
+                return;
+            }
+            scanner.nextLine();
+
+            System.out.println("Enter your email: ");
+            String email = scanner.nextLine();
+            try {
+                student.setEmail(email);
+            } catch (IllegalEmailException e) {
+                System.out.println("Invalid email: " + e.getMessage());
+                return;
+            }
+
         } else if (type == 2) {
+            GraduateStudent gradStudent = new GraduateStudent(0, firstName, lastName, 0, Major.ART, " ");
+            System.out.print("Enter major (ART, ECONOMICS, MATH): ");
+            String majorStr = scanner.nextLine();
+            try {
+                Major.valueOf(majorStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid major: " + e.getMessage());
+                return;
+            }
+
+            System.out.print("Enter age: ");
+            int age = scanner.nextInt();
+            try {
+                gradStudent.setAge(age);
+            } catch (IllegalAgeException e) {
+                System.out.println("Invalid age: " + e.getMessage());
+                return;
+            }
+            scanner.nextLine();
+
+            System.out.println("Enter your email: ");
+            String email = scanner.nextLine();
+            try {
+                gradStudent.setEmail(email);
+            } catch (IllegalEmailException e) {
+                System.out.println("Invalid email: " + e.getMessage());
+                return;
+            }
+
             System.out.print("Enter GPA: ");
             double gpa = scanner.nextDouble();
             scanner.nextLine();
-            GraduateStudent gradStudent = new GraduateStudent(firstName, lastName, age, major);
             try {
                 gradStudent.setGPA(gpa);
             } catch (IllegalGpaException e) {
@@ -118,6 +146,7 @@ public class MenuDrivenSMS {
                 return;
             }
             student = gradStudent;
+
         } else {
             System.out.println("Invalid student type.");
             return;
@@ -155,9 +184,9 @@ public class MenuDrivenSMS {
         }
 
         // Print table header
-        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
-        System.out.format("| %-15s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |%n", "Type", "ID", "First Name", "Last Name", "Age", "Major", "GPA");
-        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
+        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
+        System.out.format("| %-15s | %-15s | %-15s | %-15s | %-15s | %-15s | %-20s | %-15s %n", "Type", "ID", "First Name", "Last Name", "Age", "Major", "Email", "GPA" );
+        System.out.format("+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+%n");
 
         // Print each student
         for (Student student : students) {

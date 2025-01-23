@@ -20,4 +20,6 @@ public interface StudentRepository {
      * @param students the list of students to save
      */
     void saveStudents(List<Student> students);
+
+    List<Student> findAll();
 }

@@ -2,6 +2,7 @@ package Session18.SMS;
 
 import Session18.SMS.Menu.MainMenu;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,10 +17,17 @@ public class Main {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        StudentRepository studentRepository = new FileStudentRepository("students.csv");
+        StudentRepository studentRepository = new FileStudentRepository("students19.csv") {
+            @Override
+            public List<Student> findAll() {
+                return List.of();
+            }
+        };
+
+
         StudentService studentService = new StudentService(studentRepository);
         Scanner scanner = new Scanner(System.in);
         MainMenu mainMenu = new MainMenu(studentService, scanner);
         mainMenu.displayMenu();
     }
-}
+    }
