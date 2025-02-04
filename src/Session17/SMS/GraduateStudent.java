@@ -26,6 +26,7 @@ public class GraduateStudent extends Student implements Printable {
      * @return the GPA of the student
      */
     public double getGPA() {
+
         return GPA;
     }
 
